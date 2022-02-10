@@ -1,0 +1,8 @@
+name: DeathSwap
+version: '${project.version}'
+main: fr.mathys.DeathSwap
+api-version: 1.16
+authors: [ redlegamin ]
+commands:
+  deathswap:
+    description: Death swap commands.
