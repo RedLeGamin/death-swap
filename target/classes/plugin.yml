@@ -2,7 +2,7 @@ name: DeathSwap
 version: '1.0-SNAPSHOT'
 main: fr.mathys.DeathSwap
 api-version: 1.16
-authors: [ redlegamin ]
+authors: [ redlegamin, georgenotfound ]
 commands:
   deathswap:
     description: Death swap commands.
