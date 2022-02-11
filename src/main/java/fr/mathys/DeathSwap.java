@@ -13,6 +13,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
+import java.util.Random;
 import java.util.Stack;
 import java.util.UUID;
 
@@ -62,16 +64,30 @@ public class DeathSwap extends JavaPlugin implements CommandExecutor, Listener {
                         if(pair != null) continue;
                         if(!playingPlayers.contains(player.getUniqueId())) continue;
                         filteredPlayers.push(player);
-                        locations.push(player.getLocation());
                     }
 
                     if(filteredPlayers.size() >= 2 || locations.size() >= 2) {
+                        Stack<Player> randomizedPlayers = new Stack<>();
+                        Random random = new Random();
+                        Player tempPlayer;
+                        int randomNumber;
+                        int i;
+                        int loopSize = filteredPlayers.size();
+                        for(i = 0; i < loopSize;) {
+                            randomNumber = random.nextInt(filteredPlayers.size());
+                            tempPlayer = filteredPlayers.get(randomNumber);
+                            filteredPlayers.remove(tempPlayer);
+                            randomizedPlayers.push(tempPlayer);
+                            locations.push(tempPlayer.getLocation());
+                            i++;
+                        }
+
                         Location firstLocation = locations.peek();
                         locations.pop();
                         locations.add(0, firstLocation);
 
-                        int i  = 0;
-                        for(Player player : filteredPlayers) {
+                        i = 0;
+                        for(Player player : randomizedPlayers) {
                             Location location = locations.get(i);
                             player.teleport(location);
                             i++;
